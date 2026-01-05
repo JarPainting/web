@@ -153,6 +153,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: var(--primary-color); /* Color de respaldo */
 }
 
 /* Overlay SUTIL para dar profundidad sin opacar el logo */
@@ -237,6 +238,59 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* ===== RESPONSIVE - SOLUCIÓN MÓVIL ===== */
+@media (max-width: 768px) {
+    .hero {
+        margin-top: 60px;
+        min-height: 80vh;
+        
+        /* SOLUCIÓN: Mostrar TODO el logo sin recortar */
+        background-size: contain;
+        background-position: center center;
+        background-attachment: scroll; /* Mejor performance en móvil */
+        
+        /* Color de fondo para los espacios vacíos */
+        background-color: var(--primary-color); /* Azul oscuro de tu paleta */
+    }
+    
+    /* Ajustar overlay en móvil para que no oscurezca tanto */
+    .hero::before {
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.1) 100%
+        );
+    }
+
+    .hero-scroll-indicator {
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 70vh;
+        
+        /* En móviles muy pequeños, podemos ajustar más */
+        background-size: 90%; /* Opcional: deja un poco más de margen */
+    }
+
+    .hero-scroll-indicator {
+        display: none; /* Ocultar en pantallas muy pequeñas si es necesario */
+    }
+}
+
+/* ===== ALTERNATIVA: Si quedan espacios muy grandes ===== */
+/* Descomenta esto si el logo es muy horizontal y quedan muchos espacios */
+/*
+@media (max-width: 768px) and (orientation: portrait) {
+    .hero {
+        background-size: 100% auto;
+        background-position: center 40%;
+    }
+}
+*/
 
 /* ===== ABOUT SECTION MEJORADA ===== */
 .about {
