@@ -1,4 +1,4 @@
-/* ===== ESTILOS GENERALES ===== */
+/* ===== ESTILOS GENERALES ===== *//* ===== ESTILOS GENERALES ===== */
 :root {
     /* Paleta de colores original */
     --primary-color: #1a237e;
@@ -137,7 +137,8 @@ body {
     transition: all var(--transition-normal);
 }
 
-/* ===== HERO SECTION - SOLO LOGO CON CONTROL TOTAL ===== */
+/* ===== HERO SECTION - SOLO LOGO ===== */
+/* ===== HERO SECTION - LOGO RESPONSIVO CORREGIDO ===== */
 .hero {
     position: relative;
     min-height: 100vh;
@@ -146,22 +147,31 @@ body {
     justify-content: center;
     margin-top: 70px;
     overflow: hidden;
-    background-color: var(--primary-color); /* Color de respaldo */
+    background-color: #0a1128;
 }
 
-/* Imagen de fondo con object-fit */
-.hero-bg-image {
+/* Imágenes de fondo - SOLO para el hero */
+.hero .hero-bg-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;           /* Desktop: cubre toda la pantalla */
+    object-fit: cover;
     object-position: center center;
     z-index: 0;
 }
 
-/* Overlay SUTIL para dar profundidad */
+/* DESKTOP: Mostrar SOLO imagen horizontal */
+.hero .hero-bg-desktop {
+    display: block;
+}
+
+.hero .hero-bg-mobile {
+    display: none;
+}
+
+/* Overlay SUTIL */
 .hero::before {
     content: '';
     position: absolute;
@@ -172,7 +182,7 @@ body {
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.2) 100%
+        rgba(0, 0, 0, 0.15) 100%
     );
     z-index: 1;
     pointer-events: none;
@@ -245,18 +255,23 @@ body {
     to { opacity: 1; }
 }
 
-/* ===== RESPONSIVE - MÓVILES CON CONTROL PRECISO ===== */
+/* ===== RESPONSIVE - SOLO MÓVILES ===== */
 @media (max-width: 768px) {
     .hero {
         margin-top: 60px;
-        min-height: 80vh;
+        min-height: 85vh;
     }
     
-    /* SOLUCIÓN MÓVIL: Muestra TODO el logo sin recortar */
-    .hero-bg-image {
-        object-fit: contain;           /* Muestra el logo completo */
+    /* OCULTAR imagen desktop EN MÓVIL */
+    .hero .hero-bg-desktop {
+        display: none !important;
+    }
+    
+    /* MOSTRAR imagen móvil EN MÓVIL */
+    .hero .hero-bg-mobile {
+        display: block !important;
+        object-fit: contain;
         object-position: center center;
-        background-color: var(--primary-color); /* Rellena espacios vacíos */
     }
     
     /* Overlay más suave en móvil */
@@ -275,27 +290,151 @@ body {
 
 @media (max-width: 480px) {
     .hero {
-        min-height: 70vh;
+        min-height: 75vh;
     }
 
-    .hero-scroll-indicator {
-        bottom: 15px;
-    }
-    
     .hero-scroll-indicator span {
         font-size: 0.75rem;
     }
 }
 
-/* ===== AJUSTES OPCIONALES ===== */
 
-/* Si el logo es muy horizontal y quieres más zoom en móvil */
-@media (max-width: 768px) and (orientation: portrait) {
-    .hero-bg-image {
-        object-fit: cover;              /* Alternativa: cubre la pantalla */
-        object-position: center 40%;    /* Ajusta la posición vertical */
+/* ===== ABOUT SECTION MEJORADA ===== */
+.about {
+    background: linear-gradient(135deg, var(--light-color) 0%, var(--white) 100%);
+    padding: 5rem 0;
+}
+
+/* Contenedor del contenido hero movido aquí */
+.about-hero-content {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
+
+/* Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: rgba(26, 35, 126, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    margin-bottom: 2rem;
+}
+
+.hero-badge i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.hero-badge span {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Título principal */
+.about h2 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.about h2::after {
+    display: none; /* Quitamos la línea decorativa para este caso */
+}
+
+/* Subtítulo */
+.about-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+}
+
+/* Hero Features */
+.hero-features {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+}
+
+.hero-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hero-feature-item i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    background: rgba(255, 87, 34, 0.1);
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 2px solid var(--accent-color);
+    transition: all var(--transition-normal);
+}
+
+.hero-feature-item:hover i {
+    background: var(--accent-color);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+.hero-feature-item span {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+/* Botón Hero */
+.btn-hero {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    padding: 16px 40px;
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all var(--transition-normal);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    background-color: #e64a19;
+    box-shadow: 0 15px 35px rgba(255, 87, 34, 0.5);
+}
+
+.btn-hero:active {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+}
+
 /* Contenido de texto de About */
 .about-text-content {
     max-width: 900px;
